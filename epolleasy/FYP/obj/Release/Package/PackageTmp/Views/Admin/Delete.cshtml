@@ -1,0 +1,28 @@
+﻿@*@model FYP.Models.Community*@
+
+@{
+    Layout = null;
+}
+
+<div class="container">
+    @using (Html.BeginForm("Delete", "admin", new { cid = ViewBag.Id, a = 0, id = "popupForm" }, FormMethod.Post))
+    {
+
+        <text>Are you sure you want to delete this Community??</text>
+        
+        <br/>
+
+        <div class="row">
+
+            <div class="col-md-2">
+                <button class="btn btn-primary" type="submit">Yes </button>
+            </div>
+
+            <div class="col-md-2">
+                <a href="/Admin/ViewDetails/@ViewBag.Id/" class="btn btn-primary">No</a>
+            </div>  
+      </div>
+    }
+
+</div>
+@*<script src="~/Scripts/create_com_popup.js"></script>*@

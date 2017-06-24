@@ -1,0 +1,183 @@
+﻿@model FYP.Models.QForm
+@{
+    ViewBag.Title = "AddForm";
+    Layout = null;
+}
+
+<head>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800,300' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <!-- Style Sheet -->
+    <link rel="stylesheet" href="~/Content/owl.carousel.css">
+    <link rel="stylesheet" href="~/Content/main-style.css">
+    <link rel="stylesheet" href="~/Content/style.css">
+
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+
+</head>
+
+<body>
+    <div id="main-wrapper">
+
+        <div class="box-shadow-for-ui">
+            <div class="uou-block-2b">
+                <div class="container">
+
+                    <div class="row">
+
+                        <div class="col-lg-2">
+                            <a href="#" class="logo"><img src="~/images/applogo.png" alt=""></a> <a href="#" class="mobile-sidebar-button mobile-sidebar-toggle"><span></span></a>
+
+
+                        </div>
+
+
+                        <div class="col-lg-7 pull-right">
+
+                            <nav class="nav">
+
+
+                                <ul class="sf-menu">
+                                    <li>
+
+                                        <div class="uou-block-1a blog">
+                                            <div class="search">
+                                                <a href="#" class="toggle fa fa-search"></a>
+
+                                                <form action="/Admin/SearchCommunity" method="get">
+
+                                                    <input id="SearchString" name="SearchString" type="text" class="search-input" placeholder="Search ..." />
+                                                    <input type="submit" value="">
+                                                </form>
+
+                                            </div>
+                                        </div>
+
+
+                                    </li>
+
+                                    <li class="active"> <a href="/admin/index/"> <i class="fa fa-home"></i> </a> </li>
+
+                                  </ul>
+
+                             </nav>
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+            </div>
+            <!-- end .uou-block-2b -->
+        </div>
+
+        <a class="btn btn-primary" href="/admin/ViewDetails/@ViewBag.id/"><i class="fa fa-arrow-left"></i>Back</a>
+
+        <h3>AddForm</h3>
+
+        <div class="container">
+            @using (Html.BeginForm("AddForm", "admin", new { c_id = ViewBag.id }, FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary("", new { @class = "text-danger" })
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label>Form Title*</label>
+                        </div>
+                        <div class="col-md-6">
+                            @Html.TextBoxFor(a => a.FormTitle, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(a => a.FormTitle)
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label>Form Detail</label>
+                        </div>
+                        <div class="col-md-6">
+                            @Html.TextAreaFor(a => a.FormDetail, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(a => a.FormDetail)
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+
+                    <div class="row">
+
+                        <div class="col-md-2">
+                            <label>Select Form Type *</label>
+                        </div>
+                        <div class="col-md-4">
+                            @Html.DropDownList("ft", new List<SelectListItem>
+                {
+                    new SelectListItem{ Text="Poll ", Value = "1" },
+                    new SelectListItem{ Text="Frequency", Value = "2" },
+                })
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <label>Expiry Time*</label>
+                    </div>
+                    <div class="col-md-9">
+
+                        <div class="form-group">
+                            <div class="input-group date form_datetime col-md-6" data-date="@ViewBag.date@ViewBag.time" data-date-format="MM dd yyyy  HH:ii p" data-link-field="dtp_input1" name="exp_time">
+                                <input class="form-control" size="16" type="text" value="" readonly name="exp_time">
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+                            </div>
+                            <input type="hidden" id="dtp_input1" value="" /><br />
+                        </div>
+
+
+                    </div>
+                </div>
+
+
+
+                <br />
+                <br />
+                <br />
+                <button class="btn btn-primary" type="submit">Create</button>
+
+            }
+        </div>
+
+        <div class="uou-block-4a secondary dark">
+            <div class="container">
+                <ul class="links">
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms &amp; Conditions</a></li>
+                </ul>
+                <p>Copyright &copy; 2017 <a href="#">ePolleasy</a>. All Rights reserved.</p>
+            </div>
+        </div>
+
+
+        <script src="~/Scripts/jquery-1.8.3.min.js"></script>
+        <script src="~/Scripts/bootstrap.min.js"></script>
+        <script src="~/Scripts/bootstrap-datetimepicker.js"></script>
+        <script src="~/Scripts/bootstrap-datetimepicker.fr.js"></script>
+        <script type="text/javascript">
+            $('.form_datetime').datetimepicker({
+                //language:  'fr',
+                startDate: "@ViewBag.date@ViewBag.time",
+                weekStart: 1,
+                //format:"dd/mm/yyyy hh:mm:ss p",
+                todayBtn: 1,
+                autoclose: 1,
+                todayHighlight: 1,
+                startView: 2,
+                forceParse: 0,
+                showMeridian: 1
+            });
+        </script>
+        @* @Scripts.Render("~/bundles/jqueryval")*@
+</body>

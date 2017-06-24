@@ -1,0 +1,50 @@
+﻿@model FYP.ViewModel.PFormViewModel
+@{
+    ViewBag.Title = "FormParticipate";
+}
+<a class="btn btn-primary" href="/Participant/ParticipantViewDetail/@ViewBag.cid"><i class="fa fa-arrow-left"></i>Back</a>
+
+<h2>FormParticipate</h2>
+
+@using (Html.BeginForm("FormParticipate", "Participant", new { id = ViewBag.Id, c_id = ViewBag.cid }, FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <hr />
+    if (Model.Ques.Count != 0)
+    {
+
+     <div class="form-group">
+       
+         <div class="cto">
+             @for (var i = 0; i < Model.Ques.Count(); i++)
+             {
+                 <p>@Model.Ques[i].QuestionString</p>
+
+                 for (var j = 0; j < Model.Ques[i].Answer.Count(); j++)
+                 {
+                     @Html.RadioButtonFor(m => m.Ques[i].SelectedAnswerId, Model.Ques[i].Answer[j].AnswerID, new { id = "Question" + i.ToString() + "Answer" + j.ToString() })
+                     <label for="Ques@(i)Answer@(j)" title="Response So Far:@Model.Ques[i].Answer[j].AnsCount">@Model.Ques[i].Answer[j].AnswerStatement</label>
+                 }
+             }
+
+         </div>
+
+    </div>
+     <div>
+            <input type="submit" value="Submit" />
+      </div>
+    }
+    else
+    {
+        <p>Form is empty</p>
+    }
+    @*<script src="~/Scripts/jquery-1.11.3 min.js"></script>
+
+    <script>
+    $(document).on('mouseover', '.cto label', function () {
+        $(this).attr('title');
+
+
+    });
+    </script>*@
+}
